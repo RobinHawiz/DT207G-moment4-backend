@@ -1,4 +1,4 @@
-# DT207-moment1-backend
+# DT207-moment4-backend
 
 A minimal API for user registration, login, and authentication using JSON Web Tokens (JWT). Stores user data in a SQLite database.
 
