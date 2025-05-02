@@ -13,6 +13,9 @@ app.use(json());
 const db = new Database(process.env.DATABASE);
 
 // Routes
+app.use("/health", (_req, res) => {
+  res.status(200);
+});
 app.use("/api", authRoutes(db));
 
 // Protected routes
