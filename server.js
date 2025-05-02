@@ -28,7 +28,7 @@ app.use("/api", authRoutes(db));
 app.get("/api/protected", authenticateToken, (req, res) => {
   try {
     const statement = db.prepare(
-      `select id, username, email, first_name as firstName, last_name as lastName, created from users where id = @id`
+      `select username, email, first_name as firstName, last_name as lastName, created from users where id = @id`
     );
     const row = statement.get({ id: req.id });
     res.status(200).json(row);

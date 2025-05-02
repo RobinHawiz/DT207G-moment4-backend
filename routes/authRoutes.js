@@ -26,10 +26,10 @@ export function authRoutes(db) {
       }
 
       // Check if user exist
-      const statement = db.prepare(
+      const checkStatement = db.prepare(
         `select * from users where username = @username`
       );
-      const row = statement.get({ username: payload.username });
+      const row = checkStatement.get({ username: payload.username });
       if (!!row) {
         return res.status(401).json({ message: "User already exists!" });
       }
@@ -38,10 +38,10 @@ export function authRoutes(db) {
       payload.password = await bcrypt.hash(payload.password, 10);
 
       // Correct - save user
-      statement =
+      const insertStatement =
         db.prepare(`insert into users (username, password, email, first_name, last_name)
                   values(@username, @password, @email, @firstName, @lastName)`);
-      statement.run(payload);
+      insertStatement.run(payload);
 
       res.status(201).json({ message: "User created" });
     } catch (error) {
