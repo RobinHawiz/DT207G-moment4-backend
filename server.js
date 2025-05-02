@@ -4,10 +4,14 @@ import Database from "better-sqlite3";
 import jwt from "jsonwebtoken";
 import { authRoutes } from "./routes/authRoutes.js";
 import path from "path";
+import cors from "cors";
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Middlewares
+app.use(cors());
 app.use(json());
 
 // Connect
