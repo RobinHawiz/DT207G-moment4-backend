@@ -25,13 +25,20 @@ export function authRoutes(db) {
         }
       }
 
-      // Check if user already exists
+      // Check if user exist
+      const statement = db.prepare(
+        `select * from users where username = @username`
+      );
+      const row = statement.get({ username: payload.username });
+      if (!!row) {
+        return res.status(401).json({ message: "User already exists!" });
+      }
 
       // Hash password
       payload.password = await bcrypt.hash(payload.password, 10);
 
       // Correct - save user
-      const statement =
+      statement =
         db.prepare(`insert into users (username, password, email, first_name, last_name)
                   values(@username, @password, @email, @firstName, @lastName)`);
       statement.run(payload);

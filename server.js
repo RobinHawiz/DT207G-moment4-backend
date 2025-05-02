@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import Database from "better-sqlite3";
 import jwt from "jsonwebtoken";
 import { authRoutes } from "./routes/authRoutes.js";
+import path from "path";
 dotenv.config();
 
 const app = express();
@@ -10,7 +11,8 @@ const port = process.env.PORT || 3000;
 app.use(json());
 
 // Connect
-const db = new Database(process.env.DATABASE);
+const __dirname = import.meta.dirname;
+const db = new Database(path.join(__dirname, "db", "app.db"));
 
 // Routes
 app.use("/health", (_req, res) => {
