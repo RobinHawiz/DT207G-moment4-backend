@@ -16,7 +16,7 @@ const db = new Database(path.join(__dirname, "db", "app.db"));
 
 // Routes
 app.use("/health", (_req, res) => {
-  res.status(200);
+  res.status(200).send("OK");
 });
 app.use("/api", authRoutes(db));
 
